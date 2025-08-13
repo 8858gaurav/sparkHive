@@ -175,3 +175,52 @@ if __name__ == '__main__':
     # |       6|2013-07-25|       7130|    COMPLETE|
     # +--------+----------+-----------+------------+
 
+
+      # cd /opt/hive/conf # in labs, then open hive-site.xml files
+
+       # <property>
+       #     <name>hive.metastore.warehouse.dir</name>
+       #     <value>/user/hive/warehouse</value>
+       #     <description>location of default database for the warehouse</description>
+       #   </property>
+
+       # for meta store connection with Hive
+
+       # <property>
+       #     <name>hive.metastore.db.type</name>
+       #     <value>postgres</value>
+       #     <description>
+       #       Expects one of [derby, oracle, mysql, mssql, postgres].
+       #       Type of database used by the metastore. Information schema &amp; JDBCStorageHandler depend on it.
+       #     </description>
+       #   </property>
+
+       # [itv020752@g01 conf]$ grep -n -i "javax" hive-site.xml
+
+       # <property>
+       #     <name>javax.jdo.option.ConnectionUserName</name>
+       #     <value>hive</value>
+       #     <description>Username to use against metastore database</description>
+       #   </property>
+
+       # <property>
+       #     <name>hive.conf.hidden.list</name>
+       #     <value>javax.jdo.option.ConnectionPassword,hive.server2.keystore.password,fs.s3.awsAccessKeyId,fs.s3.awsSecretAccessKey,fs.s3n.awsAccessKeyId,fs.s3n.awsSecretAccessKey,fs.s3a.access.key,fs.s3a.secret.key,fs.s3a.proxy.password,dfs.adls.oauth2.credential,fs.adl.oauth2.credential</value>
+       #     <description>Comma separated list of configuration options which should not be read by normal user like passwords</description>
+       #   </property>
+
+       # <property>
+       #     <name>javax.jdo.option.ConnectionURL</name>
+       #     <value>jdbc:postgresql://g01.itversity.com:5432/metastore</value>
+       #     <description>
+       #       JDBC connect string for a JDBC metastore.
+       #       To use SSL to encrypt/authenticate the connection, provide database-specific SSL flag in the connection URL.
+       #       For example, jdbc:postgresql://myhost/db?ssl=true for postgres database.
+       #     </description>
+       #   </property>
+
+       # <property>
+       #     <name>javax.jdo.option.ConnectionDriverName</name>
+       #     <value>org.postgresql.Driver</value>
+       #     <description>Driver class name for a JDBC metastore</description>
+       #   </property>
