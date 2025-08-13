@@ -46,7 +46,7 @@ if __name__ == '__main__':
     # drwxr-xr-x   - itv020752 supergroup          0 2025-07-17 10:15 /user/itv020752/warehouse/itv020752_partitioning.db
     # drwxr-xr-x   - itv020752 supergroup          0 2025-08-13 05:42 /user/itv020752/warehouse/misgaurav_hive.db
 
-    spark.sql("CREATE TABLE IF NOT EXISTS misgaurav_hive.table1 (order_id integer, order_date date, customer_id integer, order_status string)").show()
+    spark.sql("CREATE TABLE IF NOT EXISTS misgaurav_hive.table1 (order_id string, order_date string, customer_id string, order_status string)").show()
 
     # hive> show tables;
     # OK
@@ -72,9 +72,9 @@ if __name__ == '__main__':
     # +------------+---------+-------+
     # |    col_name|data_type|comment|
     # +------------+---------+-------+
-    # |    order_id|      int|   null|
-    # |  order_date|     date|   null|
-    # | customer_id|      int|   null|
+    # |    order_id|   string|   null|
+    # |  order_date|   string|   null|
+    # | customer_id|   string|   null|
     # |order_status|   string|   null|
     # +------------+---------+-------+
 
@@ -82,22 +82,22 @@ if __name__ == '__main__':
     # +----------------------------+-------------------------------------------------------------------------------+-------+
     # |col_name                    |data_type                                                                      |comment|
     # +----------------------------+-------------------------------------------------------------------------------+-------+
-    # |order_id                    |int                                                                            |null   |
-    # |order_date                  |date                                                                           |null   |
-    # |customer_id                 |int                                                                            |null   |
+    # |order_id                    |string                                                                         |null   |
+    # |order_date                  |string                                                                         |null   |
+    # |customer_id                 |string                                                                         |null   |
     # |order_status                |string                                                                         |null   |
     # |                            |                                                                               |       |
     # |# Detailed Table Information|                                                                               |       |
     # |Database                    |misgaurav_hive                                                                 |       |
     # |Table                       |table1                                                                         |       |
     # |Owner                       |itv020752                                                                      |       |
-    # |Created Time                |Wed Aug 13 05:42:09 EDT 2025                                                   |       |
+    # |Created Time                |Wed Aug 13 06:47:29 EDT 2025                                                   |       |
     # |Last Access                 |UNKNOWN                                                                        |       |
     # |Created By                  |Spark 3.1.2                                                                    |       |
     # |Type                        |MANAGED                                                                        |       |
     # |Provider                    |hive                                                                           |       |
-    # |Table Properties            |[transient_lastDdlTime=1755078403]                                             |       |
-    # |Statistics                  |55 bytes                                                                       |       |
+    # |Table Properties            |[transient_lastDdlTime=1755082054]                                             |       |
+    # |Statistics                  |77 bytes                                                                       |       |
     # |Location                    |hdfs://m01.itversity.com:9000/user/itv020752/warehouse/misgaurav_hive.db/table1|       |
     # |Serde Library               |org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe                             |       |
     # |InputFormat                 |org.apache.hadoop.mapred.TextInputFormat                                       |       |
@@ -108,22 +108,22 @@ if __name__ == '__main__':
     # +----------------------------+-------------------------------------------------------------------------------+-------+
     # |col_name                    |data_type                                                                      |comment|
     # +----------------------------+-------------------------------------------------------------------------------+-------+
-    # |order_id                    |int                                                                            |null   |
-    # |order_date                  |date                                                                           |null   |
-    # |customer_id                 |int                                                                            |null   |
+    # |order_id                    |string                                                                         |null   |
+    # |order_date                  |string                                                                         |null   |
+    # |customer_id                 |string                                                                         |null   |
     # |order_status                |string                                                                         |null   |
     # |                            |                                                                               |       |
     # |# Detailed Table Information|                                                                               |       |
     # |Database                    |misgaurav_hive                                                                 |       |
     # |Table                       |table1                                                                         |       |
     # |Owner                       |itv020752                                                                      |       |
-    # |Created Time                |Wed Aug 13 05:42:09 EDT 2025                                                   |       |
+    # |Created Time                |Wed Aug 13 06:47:29 EDT 2025                                                   |       |
     # |Last Access                 |UNKNOWN                                                                        |       |
     # |Created By                  |Spark 3.1.2                                                                    |       |
     # |Type                        |MANAGED                                                                        |       |
     # |Provider                    |hive                                                                           |       |
-    # |Table Properties            |[transient_lastDdlTime=1755078403]                                             |       |
-    # |Statistics                  |55 bytes                                                                       |       |
+    # |Table Properties            |[transient_lastDdlTime=1755082054]                                             |       |
+    # |Statistics                  |77 bytes                                                                       |       |
     # |Location                    |hdfs://m01.itversity.com:9000/user/itv020752/warehouse/misgaurav_hive.db/table1|       |
     # |Serde Library               |org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe                             |       |
     # |InputFormat                 |org.apache.hadoop.mapred.TextInputFormat                                       |       |
@@ -138,26 +138,46 @@ if __name__ == '__main__':
     # |       6|2013-07-25|       7130|    COMPLETE|
     # +--------+----------+-----------+------------+
 
-    # now adding the file in this path
+   # now adding the file in this path
     # [itv020752@g01 ~]$ hadoop fs -ls /user/itv020752/warehouse/misgaurav_hive.db/table1
 
     # [itv020752@g01 ~]$ hadoop fs -put new_orders /user/itv020752/warehouse/misgaurav_hive.db/table1/
 
+    # [itv020752@g01 ~]$ hadoop fs -ls /user/itv020752/warehouse/misgaurav_hive.db/table1/
+    # Found 2 items
+    # -rw-r--r--   3 itv020752 supergroup         79 2025-08-13 06:50 /user/itv020752/warehouse/misgaurav_hive.db/table1/new_orders1
+    # -rwxr-xr-x   3 itv020752 supergroup         77 2025-08-13 06:47 /user/itv020752/warehouse/misgaurav_hive.db/table1/part-00000-60871b51-9941-4fd7-bcbc-84e543de2e84-c000
+    
     spark.sql("select * from misgaurav_hive.table1").show()
 
-    # +--------+----------+-----------+------------+
-    # |order_id|order_date|customer_id|order_status|
-    # +--------+----------+-----------+------------+
-    # |    null|      null|       null|        null|
-    # |    null|      null|       null|        null|
-    # |       5|2013-07-25|      11318|    COMPLETE|
-    # |       6|2013-07-25|       7130|    COMPLETE|
-    # +--------+----------+-----------+------------+
+    # +--------------------+--------------------+-----------+------------+
+    # |            order_id|          order_date|customer_id|order_status|
+    # +--------------------+--------------------+-----------+------------+
+    # |5,2013-07-25 00:0...|                null|       null|        null|
+    # |6,2013-07-25 00:0...|                null|       null|        null|
+    # |                   5|2013-07-25 00:00:...|      11318|    COMPLETE|
+    # |                   6|2013-07-25 00:00:...|       7130|    COMPLETE|
+    # +--------------------+--------------------+-----------+------------+
 
 
     # hive> select * from table1;
     # OK
-    # NULL    NULL    NULL    NULL
-    # NULL    NULL    NULL    NULL
-    # 5       2013-07-25      11318   COMPLETE
-    # 6       2013-07-25      7130    COMPLETE
+    # 5,2013-07-25 00:0...    NULL         NULL    NULL
+    # 6,2013-07-25 00:0...    NULL         NULL    NULL
+    # 5                      2013-07-25    11318   COMPLETE
+    # 6                      2013-07-25    7130    COMPLETE
+
+    # don't paste the data by using delimiter.
+    # now pasting a new file without using seperator
+
+    spark.sql("select * from misgaurav_hive.table1").show(truncate = False)
+    # +---------------------------------------+---------------------+-----------+------------+
+    # |order_id                               |order_date           |customer_id|order_status|
+    # +---------------------------------------+---------------------+-----------+------------+
+    # |5,2013-07-25 00:00:00.0,11318,COMPLETE |null                 |null       |null        |
+    # |6,2013-07-25 00:00:00.0,7130,COMPLETESS|null                 |null       |null        |
+    # |52013-07-25 00:00:00.011318COMPLETE    |null                 |null       |null        |
+    # |62013-07-25 00:00:00.07130COMPLETESSS  |null                 |null       |null        |
+    # |5                                      |2013-07-25 00:00:00.0|11318      |COMPLETE    |
+    # |6                                      |2013-07-25 00:00:00.0|7130       |COMPLETE    |
+    # +---------------------------------------+---------------------+-----------+------------+
