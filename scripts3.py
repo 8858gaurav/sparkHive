@@ -134,3 +134,17 @@ if __name__ == '__main__':
     # -rw-r--r--   3 itv020752 supergroup         56 2025-08-14 06:19 /user/itv020752/data/datasets/hive_datasets/new_orders1
     # -rw-r--r--   3 itv020752 supergroup         81 2025-08-14 06:10 /user/itv020752/data/datasets/hive_datasets/new_orders2
     # -rw-r--r--   3 itv020752 supergroup         75 2025-08-14 06:28 /user/itv020752/data/datasets/hive_datasets/new_orders3
+
+    # The data will be still there, only the table will be dropped.
+    # hive> drop table misgaurav_orders_ext;
+    # OK
+    # Time taken: 0.279 seconds
+    # hive> select * from misgaurav_orders_ext;
+    # FAILED: SemanticException [Error 10001]: Line 1:14 Table not found 'misgaurav_orders_ext'
+
+    # [itv020752@g01 ~]$ hadoop fs -ls /user/itv020752/data/datasets/hive_datasets
+    # Found 4 items
+    # -rw-r--r--   3 itv020752 supergroup         78 2025-08-14 06:21 /user/itv020752/data/datasets/hive_datasets/new_orders
+    # -rw-r--r--   3 itv020752 supergroup         56 2025-08-14 06:19 /user/itv020752/data/datasets/hive_datasets/new_orders1
+    # -rw-r--r--   3 itv020752 supergroup         81 2025-08-14 06:10 /user/itv020752/data/datasets/hive_datasets/new_orders2
+    # -rw-r--r--   3 itv020752 supergroup         75 2025-08-14 06:28 /user/itv020752/data/datasets/hive_datasets/new_orders3
