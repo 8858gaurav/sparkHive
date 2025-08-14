@@ -46,6 +46,7 @@ if __name__ == '__main__':
     # drwxr-xr-x   - itv020752 supergroup          0 2025-07-17 10:15 /user/itv020752/warehouse/itv020752_partitioning.db
     # drwxr-xr-x   - itv020752 supergroup          0 2025-08-13 05:42 /user/itv020752/warehouse/misgaurav_hive_new.db
 
+    # Internal table, since it's data, and managed data will be handled by hive.
     spark.sql("CREATE TABLE IF NOT EXISTS misgaurav_hive_new.table1 (order_id string, order_date string, customer_id string, order_status string) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' ").show()
 
     # hive> show tables;
