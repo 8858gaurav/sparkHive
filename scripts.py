@@ -56,6 +56,7 @@ if __name__ == '__main__':
     # Found 1 items
     # drwxr-xr-x   - itv020752 supergroup          0 2025-08-13 05:46 /user/itv020752/warehouse/misgaurav_hive_new.db/table1
 
+    # it will invoke a MR job internally to insert the data into a tabls.
     spark.sql("insert into misgaurav_hive_new.table1 (select * from orders)")
 
     # [itv020752@g01 ~]$ hadoop fs -ls /user/itv020752/warehouse/misgaurav_hive_new.db/table1
@@ -224,3 +225,85 @@ if __name__ == '__main__':
        #     <value>org.postgresql.Driver</value>
        #     <description>Driver class name for a JDBC metastore</description>
        #   </property>
+
+
+    spark.sql("select * from misgaurav_hive_new.table1").show()
+       # +--------+----------+-----------+------------+
+       # |order_id|order_date|customer_id|order_status|
+       # +--------+----------+-----------+------------+
+       # |       5|2013-07-25|      11318|    COMPLETE|
+       # |       6|2013-07-25|       7130|   COMPLETES|
+       # |       5|2013-07-25|      11318|    COMPLETE|
+       # |       6|2013-07-25|       7130|    COMPLETE|
+       # +--------+----------+-----------+------------+
+
+       # hive > select * from misgaurav_hive_new.table1;
+       # OK
+       # 5       2013-07-25      11318   COMPLETE
+       # 6       2013-07-25      7130    COMPLETES
+       # 5       2013-07-25      11318   COMPLETE
+       # 6       2013-07-25      7130    COMPLETE
+       # Time taken: 29.724 seconds, Fetched: 4 row(s)
+              
+       # placing the new file in the folder data(hdfs)  
+       # hadoop fs -put new_orders2 data
+
+       # !hadoop fs -ls /user/itv020752/warehouse/misgaurav_hive_new.db/table1/
+
+       # Found 2 items
+       # -rw-r--r--   3 itv020752 supergroup         56 2025-08-13 07:22 /user/itv020752/warehouse/misgaurav_hive_new.db/table1/new_orders1
+       # -rwxr-xr-x   3 itv020752 supergroup         55 2025-08-13 07:17 /user/itv020752/warehouse/misgaurav_hive_new.db/table1/part-00000-fa864e12-e1b5-48f0-8f8b-d530c7f1fbf7-c000
+
+       # placing the data from local system to a table.
+       # hive> load data local inpath 'new_orders2' into table misgaurav_hive_new.table1;
+       # Loading data to table misgaurav_hive_new.table1
+       # OK
+       # Time taken: 2.084 seconds
+
+       # !hadoop fs -ls /user/itv020752/warehouse/misgaurav_hive_new.db/table1/
+
+       # Found 3 items
+       # -rw-r--r--   3 itv020752 supergroup         56 2025-08-13 07:22 /user/itv020752/warehouse/misgaurav_hive_new.db/table1/new_orders1
+       # -rw-r--r--   3 itv020752 supergroup         81 2025-08-14 05:25 /user/itv020752/warehouse/misgaurav_hive_new.db/table1/new_orders2
+       # -rwxr-xr-x   3 itv020752 supergroup         55 2025-08-13 07:17 /user/itv020752/warehouse/misgaurav_hive_new.db/table1/part-00000-fa864e12-e1b5-48f0-8f8b-d530c7f1fbf7-c000
+
+    spark.sql("select * from misgaurav_hive_new.table1").show()
+       # +--------+--------------------+-----------+------------+
+       # |order_id|          order_date|customer_id|order_status|
+       # +--------+--------------------+-----------+------------+
+       # |       5|          2013-07-25|      11318|    COMPLETE|
+       # |       6|          2013-07-25|       7130|   COMPLETES|
+       # |       5|2013-07-25 00:00:...|      11318|  COMPLETESS|
+       # |       6|2013-07-25 00:00:...|       7130|  COMPLETESS|
+       # |       5|          2013-07-25|      11318|    COMPLETE|
+       # |       6|          2013-07-25|       7130|    COMPLETE|
+       # +--------+--------------------+-----------+------------+
+
+       # placing the data from hdfs system to a table.
+
+       # hive> load data inpath 'data/new_orders2' into table misgaurav_hive_new.table1;
+       # Loading data to table misgaurav_hive_new.table1
+       # OK
+       # Time taken: 0.463 seconds
+
+       # !hadoop fs -ls /user/itv020752/warehouse/misgaurav_hive_new.db/table1/
+
+       # Found 4 items
+       # -rw-r--r--   3 itv020752 supergroup         56 2025-08-13 07:22 /user/itv020752/warehouse/misgaurav_hive_new.db/table1/new_orders1
+       # -rw-r--r--   3 itv020752 supergroup         81 2025-08-14 05:25 /user/itv020752/warehouse/misgaurav_hive_new.db/table1/new_orders2
+       # -rw-r--r--   3 itv020752 supergroup         81 2025-08-14 05:21 /user/itv020752/warehouse/misgaurav_hive_new.db/table1/new_orders2_copy_1
+       # -rwxr-xr-x   3 itv020752 supergroup         55 2025-08-13 07:17 /user/itv020752/warehouse/misgaurav_hive_new.db/table1/part-00000-fa864e12-e1b5-48f0-8f8b-d530c7f1fbf7-c000
+
+    spark.sql("select * from misgaurav_hive_new.table1").show()
+       # +--------+--------------------+-----------+------------+
+       # |order_id|          order_date|customer_id|order_status|
+       # +--------+--------------------+-----------+------------+
+       # |       5|          2013-07-25|      11318|    COMPLETE|
+       # |       6|          2013-07-25|       7130|   COMPLETES|
+       # |       5|2013-07-25 00:00:...|      11318|  COMPLETESS|
+       # |       6|2013-07-25 00:00:...|       7130|  COMPLETESS|
+       # |       5|2013-07-25 00:00:...|      11318|  COMPLETESS|
+       # |       6|2013-07-25 00:00:...|       7130|  COMPLETESS|
+       # |       5|          2013-07-25|      11318|    COMPLETE|
+       # |       6|          2013-07-25|       7130|    COMPLETE|
+       # +--------+--------------------+-----------+------------+
