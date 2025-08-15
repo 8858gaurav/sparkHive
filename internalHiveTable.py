@@ -333,3 +333,15 @@ if __name__ == '__main__':
        # |       5|          2013-07-25|      11318|    COMPLETE|
        # |       6|          2013-07-25|       7130|    COMPLETE|
        # +--------+--------------------+-----------+------------+
+
+      # if we don't put external keywords while creating an external table, then it will be an internal table.
+      #  CREATE TABLE IF NOT EXISTS orders_external(
+      # order_id integer,
+      # order_date string,
+      # customer_id integer,
+      # order_status string
+      # )
+      # ROW FORMAT DELIMITED
+      # FIELDS TERMINATED BY ','
+      # STORED AS TEXTFILE
+      # LOCATION '/user/itv005857/hive_datasets/orders';
