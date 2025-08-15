@@ -314,6 +314,12 @@ if __name__ == '__main__':
        # -rw-r--r--   3 itv020752 supergroup         81 2025-08-14 05:21 /user/itv020752/warehouse/misgaurav_hive_new.db/table1/new_orders2_copy_1
        # -rwxr-xr-x   3 itv020752 supergroup         55 2025-08-13 07:17 /user/itv020752/warehouse/misgaurav_hive_new.db/table1/part-00000-fa864e12-e1b5-48f0-8f8b-d530c7f1fbf7-c000
 
+      # so file is move from here (data) to there (/user/itv020752/warehouse/misgaurav_hive_new.db/table1/)
+      #  [itv020752@g01 ~]$ hadoop fs -ls /user/itv020752/warehouse/misgaurav_hive_new.db/table1/
+      # Found 4 items
+      # -rw-r--r--   3 itv020752 supergroup         56 2025-08-13 07:22 /user/itv020752/warehouse/misgaurav_hive_new.db/table1/new_orders1
+      # -rw-r--r--   3 itv020752 supergroup         81 2025-08-14 05:25 /user/itv020752/warehouse/misgaurav_hive_new.db/table1/new_orders2
+
     spark.sql("select * from misgaurav_hive_new.table1").show()
        # +--------+--------------------+-----------+------------+
        # |order_id|          order_date|customer_id|order_status|
