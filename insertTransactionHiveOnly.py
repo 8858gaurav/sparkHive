@@ -251,6 +251,7 @@
 # OK
 # Time taken: 1.598 seconds
 
+# earlier the data was in /user/itv020752/hive_datasets/orders1/, now it is moved to delta_0000001_0000001_0000.
 
 # hive> describe formatted orders_external1;
 # OK
