@@ -177,3 +177,5 @@ if __name__ == '__main__':
     # -rw-r--r--   3 itv020752 supergroup         56 2025-08-14 06:19 /user/itv020752/data/datasets/hive_datasets/new_orders1
     # -rw-r--r--   3 itv020752 supergroup         81 2025-08-14 06:10 /user/itv020752/data/datasets/hive_datasets/new_orders2
     # -rw-r--r--   3 itv020752 supergroup         75 2025-08-14 06:28 /user/itv020752/data/datasets/hive_datasets/new_orders3
+
+    # Update/delete operations are not supported in external hive tables.
