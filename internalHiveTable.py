@@ -345,3 +345,5 @@ if __name__ == '__main__':
       # FIELDS TERMINATED BY ','
       # STORED AS TEXTFILE
       # LOCATION '/user/itv005857/hive_datasets/orders';
+
+      # Update/delete operations are not supported in external hive tables.
