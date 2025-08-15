@@ -1,3 +1,11 @@
+# hive> create table product (pid int, name string, price int)
+#     > clustered by (pid) into 20 buckets stored as orc
+#     > TBLPROPERTIES ('transactional' = 'true');
+
+# FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. 
+# MetaException(message:Got exception: org.apache.hadoop.security.AccessControlException 
+# Permission denied: user=itv020752, access=WRITE, inode="/user/hive/warehouse":hive:students:drwxr-xr-x
+
 # Transaction table (form of delta table): Internal
 # ACID Properties in HIVE, when we talked about trxn, it should be databases, then our s/s should handle ACID properties.
 # when we are doing Insert/Updates/Delete in Hive, then we need transactions in hive (ACID)
@@ -31,14 +39,6 @@
 # ext table can't be created to support acid, since the changes on ext table are beyond the control of hive.
 # load is not supported in acid transactional tables, insert into will work here only. 
 # acid table can't be converted to non-acid table, but vice-versa is true.
-
-# hive> create table product (pid int, name string, price int)
-#     > clustered by (pid) into 20 buckets stored as orc
-#     > TBLPROPERTIES ('transactional' = 'true');
-
-# FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. 
-# MetaException(message:Got exception: org.apache.hadoop.security.AccessControlException 
-# Permission denied: user=itv020752, access=WRITE, inode="/user/hive/warehouse":hive:students:drwxr-xr-x
 
 # hive> CREATE TABLE IF NOT EXISTS orders_trx1 (
 #     > order_id integer,
