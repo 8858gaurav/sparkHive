@@ -256,7 +256,7 @@
 # drwxr-xr-x   - itv020752 supergroup          0 2025-08-14 09:21 warehouse/misgaurav_acid.db/orders_trx1/delta_0000003_0000003_0000
 
 # it will take the consoldiated files/views, it knows everything, what has been deleted, what has been inserted, and what has been updated.
-# it will returns you a consolidated view of the data.
+# it will returns you a consolidated view of the data, after taking each and every small -2 files output (insert/updates/deletes).
 
 # hive> select * from orders_trx1;
 # OK
