@@ -165,6 +165,10 @@
 # OK
 # Time taken: 19.764 seconds
 
+# internally it's working as :
+# delete this records: (1,"2013-07-25 00:00:00.0",45,"COMPLETE")
+# insert this records: (1,"2013-07-25 00:00:00.0",45,"CLOSED")
+
 # [itv020752@g01 ~]$ hadoop fs -ls warehouse/misgaurav_acid.db/orders_trx1/
 # Found 3 items
 # drwxr-xr-x   - itv020752 supergroup          0 2025-08-14 09:14 warehouse/misgaurav_acid.db/orders_trx1/delete_delta_0000002_0000002_0000; what has to be deleted
