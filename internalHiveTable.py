@@ -34,7 +34,8 @@ if __name__ == '__main__':
     # |       5|2013-07-25|      11318|    COMPLETE|
     # |       6|2013-07-25|       7130|    COMPLETE|
     # +--------+----------+-----------+------------+
-
+    
+    # creating a hive table using spark, processing it with spark engine, since hive uses MR engine to process the data. which is slower as compared to the spark engines.
     spark.sql("CREATE DATABASE misgaurav_hive_new").show()
 
     # hive> use misgaurav_hive_new;
