@@ -3,6 +3,23 @@
 
 # All file formats are supported with the insert-only transactional table
 
+# use this one first
+# hive> set hive.metastore.warehouse.dir = /user/itv020752/warehouse;
+# to create a db in hive use the above one, we don't have an access to user/hive/warehouse
+# hive> SET hive.support.concurrency=true;
+# hive> SET hive.txn.manager=org.apache.hadoop.hive.ql.lockmgr.DbTxnManager;
+# hive> SET hive.enforce.bucketing=true;
+# hive> SET hive.exec.dynamic.partition.mode=nostrict;
+# hive> SET hive.compactor.initiator.on=true;
+# hive> SET hive.compactor.worker.threads=1
+
+# hive> create database misgaurav_acid;
+# OK
+# Time taken: 0.233 seconds
+# hive> use misgaurav_acid;
+# OK
+# Time taken: 0.036 seconds
+
 # hive> CREATE TABLE IF NOT EXISTS orders_trx2 (
 #     > order_id integer,
 #     > order_date string,
