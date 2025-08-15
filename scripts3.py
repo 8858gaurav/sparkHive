@@ -18,12 +18,32 @@ if __name__ == '__main__':
            .master("yarn") \
            .getOrCreate()
     
+    ###################################################
+
     # hive> create external table misgaurav_orders_ext (order_id string, order_date string, customer_id string, order_status string)
     #     > row format delimited
     #     > fields terminated by ','
     #     > stored as textfile;
     # FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. MetaException(message:Got exception: org.apache.hadoop.
     # security.AccessControlException Permission denied: user=itv020752, access=WRITE, inode="/user":hdfs:supergroup:drwxr-xr-x
+
+    # hive> set hive.metastore.warehouse.dir=/user/itv020752/warehouse;
+    # hive> create external table misgaurav_orders_ext (order_id string, order_date string, customer_id string, order_status string)
+    #     > row format delimited
+    #     > fields terminated by ','
+    #     > stored as textfile;
+    # OK
+    # Time taken: 0.741 seconds
+    # hive> show tables;
+    # OK
+    # misgaurav_orders_ext
+    # Time taken: 0.045 seconds, Fetched: 1 row(s)
+
+    # [itv020752@g01 ~]$ hadoop fs -ls /user/itv020752/warehouse/misgaurav_101.db
+    # Found 1 items
+    # drwxr-xr-x   - itv020752 supergroup          0 2025-08-15 01:23 /user/itv020752/warehouse/misgaurav_101.db/misgaurav_orders_ext
+    
+    ############################################################################
 
     # itv020752@g01 ~]$ hadoop fs -ls /user/itv020752/data/datasets/hive_datasets
     # Found 1 items
