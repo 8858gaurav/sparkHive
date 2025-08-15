@@ -242,7 +242,7 @@
 # ('transactional'='true','transactional_properties'='insert_only')
 
 # with text file in this case, we can go with insert only. with ORC file we can go full pledge with ACID transactional properties.
-# you can convert a non-ACID hive table to a full ACID TABLE only when the non-ACID table data is in orc format
+# you can convert a non-ACID hive table to a full ACID TABLE only when the non-ACID table data is in orc format, here only insert acid transactional properties are supported.
 
 
 # hive> ALTER TABLE orders_external1 SET TBLPROPERTIES
