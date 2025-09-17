@@ -5,6 +5,16 @@ import getpass, time, os
 username = getpass.getuser()
 print(username)
 
+########### Important Note ###########
+
+# when we want to create a table/db by using spark.sql, by default it will create a table in hive, and the data will be stored in hdfs.
+# the location of the data will be /user/<user_name>/warehouse/<db_name>.db/<table_name>/, for this lab it will be /user/itv020752/warehouse/misgaurav_hive.db/misgaurav_orders/
+
+# if we want to create a db/table by using hive cli, then we need to change the default location of the hive metastore directory.
+# hive> set hive.metastore.warehouse.dir=/user/itv020752/warehouse;
+# No rows affected (0.002 seconds)
+
+###############################################
 
 if __name__ == '__main__':
     print("creating spark session")
