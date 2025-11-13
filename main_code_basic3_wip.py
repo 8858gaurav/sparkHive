@@ -221,7 +221,7 @@ spark.sql("select count(*) from table_demoa").show()
 # +--------+
 # |count(1)|
 # +--------+
-# |     209|
+# |     208|
 # +--------+
 
 spark.sql("select count(*) from table_demob").show()
@@ -235,3 +235,15 @@ spark.sql("select count(*) from table_demob").show()
 # Found 2 items
 # -rw-r--r--   3 itv020752 supergroup       4333 2025-11-13 06:57 data/data1/orders.csv
 # -rw-r--r--   3 itv020752 supergroup       4333 2025-11-13 09:36 data/data1/orders_new.csv
+
+#################### explantions #########################
+
+# !hadoop fs -cat /user/itv020752/warehouse/itv020752_db.db/table_demoa/orders_new.csv | wc
+# 104     209    4333
+# !hadoop fs -cat /user/itv020752/warehouse/itv020752_db.db/table_demoa/part-00000-2f5fd243-c3f7-418f-8d89-ba886e66b3b1-c000.csv | wc
+# 104     208    4289
+
+# !hadoop fs -cat data/data1/orders.csv | wc
+# 104     209    4333
+# !hadoop fs -cat data/data1/orders_new.csv | wc
+#  104     209    4333
