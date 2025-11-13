@@ -163,8 +163,6 @@ spark.sql("select count(*) from table_demob").show()
 #Found 1 items
 # -rw-r--r--   3 itv020752 supergroup       4333 2025-11-13 06:57 data/data1/orders.csv
 
-
-
 #################################################### After #############################
 
 # After placing the file manually to data/data1 folder
@@ -215,3 +213,25 @@ spark.sql("select count(*) from table_demob").show()
 # Found 2 items
 # -rw-r--r--   3 itv020752 supergroup       4333 2025-11-13 06:57 data/data1/orders.csv
 # -rw-r--r--   3 itv020752 supergroup       4333 2025-11-13 09:13 data/data1/orders_new.csv
+
+spark.sql("REFRESH TABLE table_demoa")
+spark.sql("REFRESH TABLE table_demob")
+
+spark.sql("select count(*) from table_demoa").show()
+# +--------+
+# |count(1)|
+# +--------+
+# |     209|
+# +--------+
+
+spark.sql("select count(*) from table_demob").show()
+# +--------+
+# |count(1)|
+# +--------+
+# |     208|
+# +--------+
+
+# !hadoop fs -ls data/data1/
+# Found 2 items
+# -rw-r--r--   3 itv020752 supergroup       4333 2025-11-13 06:57 data/data1/orders.csv
+# -rw-r--r--   3 itv020752 supergroup       4333 2025-11-13 09:36 data/data1/orders_new.csv
