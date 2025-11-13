@@ -5,8 +5,6 @@ import getpass, time
 username = getpass.getuser()
 print(username)
 
-# demo for managed spark table.
-
 spark = SparkSession \
            .builder \
            .appName("basic application") \
