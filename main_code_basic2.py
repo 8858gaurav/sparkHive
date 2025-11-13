@@ -190,4 +190,8 @@ spark.sql("select count(*) from table_demob").show()
 # |     106|
 # +--------+
 
+# !hadoop fs -ls /user/itv020752/warehouse/itv020752_db.db/data/data1
+# again, it's still empty now
+
+##########################################################################################
 # placing the file manually for managed, and ext tables:
