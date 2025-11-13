@@ -226,4 +226,4 @@ spark.sql("select count(*) from table_demob").show()
 # 1112,2013-07-25 00:00:00.0,12111,COMPLETE
 
 ##########################################################################################
-# placing the file manually for managed, and ext tables:
+# placing the file manually for managed, and ext tables: 
