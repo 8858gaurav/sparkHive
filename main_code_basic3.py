@@ -221,7 +221,7 @@ spark.sql("select count(*) from table_demoa").show()
 # +--------+
 # |count(1)|
 # +--------+
-# |     208|
+# |     209|
 # +--------+
 
 spark.sql("select count(*) from table_demob").show()
