@@ -200,10 +200,12 @@ spark.sql("select count(*) from table_demob").show()
 # -rw-r--r--   3 itv020752 supergroup         92 2025-11-13 07:41 data/data1/part-00000-c4534ce7-c68b-4d2b-9357-dedd65473e3a-c000.csv
 # -rw-r--r--   3 itv020752 supergroup         87 2025-11-13 07:41 data/data1/part-00001-c4534ce7-c68b-4d2b-9357-dedd65473e3a-c000.csv
 
+# external table create a file with column names, and inserted data.
 # !hadoop fs -cat data/data1/part-00000-c4534ce7-c68b-4d2b-9357-dedd65473e3a-c000.csv
 # order_id,order_date,customer_id,order_status
 # 1111,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
 
+# external table create a file with column names, and inserted data.
 # !hadoop fs -cat data/data1/part-00001-c4534ce7-c68b-4d2b-9357-dedd65473e3a-c000.csv
 # order_id,order_date,customer_id,order_status
 # 1112,2013-07-25 00:00:00.0,12111,COMPLETE
@@ -215,9 +217,11 @@ spark.sql("select count(*) from table_demob").show()
 # -rw-r--r--   3 itv020752 supergroup       4289 2025-11-13 07:36 /user/itv020752/warehouse/itv020752_db.db/table_demoa/part-00000-bb9dc5da-fcaf-454e-a13b-3976a3cdefd9-c000.csv
 # -rw-r--r--   3 itv020752 supergroup         42 2025-11-13 07:41 /user/itv020752/warehouse/itv020752_db.db/table_demoa/part-00001-180fa8f4-64de-47ce-8056-fda67457a592-c000.csv
 
+# managed table create a file without column names, but with inserted data.
 # !hadoop fs -cat /user/itv020752/warehouse/itv020752_db.db/table_demoa/part-00000-180fa8f4-64de-47ce-8056-fda67457a592-c000.csv
 # 1111,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
 
+# managed table create a file without column names, but with inserted data.
 # !hadoop fs -cat /user/itv020752/warehouse/itv020752_db.db/table_demoa/part-00001-180fa8f4-64de-47ce-8056-fda67457a592-c000.csv
 # 1112,2013-07-25 00:00:00.0,12111,COMPLETE
 
