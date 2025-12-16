@@ -148,3 +148,28 @@ drwxr-xr-x   - itv020752 supergroup          0 2025-12-16 05:58 /user/itv020752/
 # drwxr-xr-x   - itv020752 supergroup          0 2025-08-13 06:47 /user/itv020752/warehouse/misgaurav_hive.db
 # drwxr-xr-x   - itv020752 supergroup          0 2025-08-13 07:17 /user/itv020752/warehouse/misgaurav_hive_new.db
 # drwxr-xr-x   - itv020752 supergroup          0 2025-12-16 05:58 /user/itv020752/warehouse/misgaurav_hive_part1.db
+
+# hive> use misgaurav_hive_part1;
+# OK
+# Time taken: 0.822 seconds
+# to see the current database name in hive prompt;
+# hive> set hive.cli.print.current.db = true;
+# hive (misgaurav_hive_part1)> 
+
+# to see the column headers while selecting data from hive table;
+# hive (misgaurav_hive_part1)> set hive.cli.print.header=true;
+# hive (misgaurav_hive_part1)> select * from misgaurav_hive_table_part1;
+# OK
+# misgaurav_hive_table_part1.order_id     misgaurav_hive_table_part1.order_date   misgaurav_hive_table_part1.customer_id  misgaurav_hive_table_part1.order_status
+# Time taken: 49.832 seconds
+
+# hive> use misgaurav_hive_part1;
+# OK
+# Time taken: 0.602 seconds
+# hive> show tables;
+# OK
+# misgaurav_hive_table_part1
+# Time taken: 1.527 seconds, Fetched: 1 row(s)
+# hive> select * from misgaurav_hive_table_part1;
+# OK
+# Time taken: 31.852 seconds
