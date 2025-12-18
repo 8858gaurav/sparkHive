@@ -165,3 +165,211 @@ Stage-Stage-3:  HDFS Read: 0 HDFS Write: 0 SUCCESS
 Total MapReduce CPU Time Spent: 0 msec
 OK
 Time taken: 61.595 seconds
+
+# to show the current db in hive prompt
+hive> set hive.cli.print.current.db = true;
+
+# disbale the map side join
+hive (misgaurav_hive)> set hive.auto.convert.join = false;
+
+hive (misgaurav_hive)> set hive.mapjoin.smalltable.filesize;
+hive.mapjoin.smalltable.filesize=25000000
+## if table < 25 mb, then it will automatically trigger the broadcast or map side join, once we enable map side join.
+
+#### you'll see Join Operator, not Map Join Operator ##########
+
+hive (misgaurav_hive)> explain extended select O.*, C.* from external_orders_table O inner join external_customer_table C
+                     > on O.customer_id = C.customer_id limit 5;
+OK
+STAGE DEPENDENCIES:
+  Stage-1 is a root stage
+  Stage-0 depends on stages: Stage-1
+
+STAGE PLANS:
+  Stage: Stage-1
+    Map Reduce
+      Map Operator Tree:
+          TableScan
+            alias: o
+            Statistics: Num rows: 1 Data size: 0 Basic stats: PARTIAL Column stats: NONE
+            GatherStats: false
+            Filter Operator
+              isSamplingPred: false
+              predicate: customer_id is not null (type: boolean)
+              Statistics: Num rows: 1 Data size: 0 Basic stats: PARTIAL Column stats: NONE
+              Select Operator
+                expressions: order_id (type: string), order_date (type: string), customer_id (type: string), order_status (type: string)
+                outputColumnNames: _col0, _col1, _col2, _col3
+                Statistics: Num rows: 1 Data size: 0 Basic stats: PARTIAL Column stats: NONE
+                Reduce Output Operator
+                  key expressions: _col2 (type: string)
+                  null sort order: a
+                  sort order: +
+                  Map-reduce partition columns: _col2 (type: string)
+                  Statistics: Num rows: 1 Data size: 0 Basic stats: PARTIAL Column stats: NONE
+                  tag: 0
+                  value expressions: _col0 (type: string), _col1 (type: string), _col3 (type: string)
+                  auto parallelism: false
+          TableScan
+            alias: c
+            Statistics: Num rows: 1 Data size: 0 Basic stats: PARTIAL Column stats: NONE
+            GatherStats: false
+            Filter Operator
+              isSamplingPred: false
+              predicate: customer_id is not null (type: boolean)
+              Statistics: Num rows: 1 Data size: 0 Basic stats: PARTIAL Column stats: NONE
+              Select Operator
+                expressions: customer_id (type: string), customer_fname (type: string), customer_lname (type: string), username (type: string), password (type: string), address (type: string), city (type: string), state (type: string), pincode (type: string)
+                outputColumnNames: _col0, _col1, _col2, _col3, _col4, _col5, _col6, _col7, _col8
+                Statistics: Num rows: 1 Data size: 0 Basic stats: PARTIAL Column stats: NONE
+                Reduce Output Operator
+                  key expressions: _col0 (type: string)
+                  null sort order: a
+                  sort order: +
+                  Map-reduce partition columns: _col0 (type: string)
+                  Statistics: Num rows: 1 Data size: 0 Basic stats: PARTIAL Column stats: NONE
+                  tag: 1
+                  value expressions: _col1 (type: string), _col2 (type: string), _col3 (type: string), _col4 (type: string), _col5 (type: string), _col6 (type: string), _col7 (type: string), _col8 (type: string)
+                  auto parallelism: false
+      Path -> Alias:
+        hdfs://m01.itversity.com:9000/user/itv020752/hive_datasets/customers [$hdt$_1:c]
+        hdfs://m01.itversity.com:9000/user/itv020752/hive_datasets/orders [$hdt$_0:o]
+      Path -> Partition:
+        hdfs://m01.itversity.com:9000/user/itv020752/hive_datasets/customers 
+          Partition
+            base file name: customers
+            input format: org.apache.hadoop.mapred.TextInputFormat
+            output format: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+            properties:
+              EXTERNAL TRUE
+              bucket_count -1
+              bucketing_version 2
+              column.name.delimiter ,
+              columns customer_id,customer_fname,customer_lname,username,password,address,city,state,pincode
+              columns.comments 
+              columns.types string:string:string:string:string:string:string:string:string
+              field.delim ,
+              file.inputformat org.apache.hadoop.mapred.TextInputFormat
+              file.outputformat org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+              location hdfs://m01.itversity.com:9000/user/itv020752/hive_datasets/customers
+              name misgaurav_hive.external_customer_table
+              serialization.ddl struct external_customer_table { string customer_id, string customer_fname, string customer_lname, string username, string password, string address, string city, string state, string pincode}
+              serialization.format ,
+              serialization.lib org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+              transient_lastDdlTime 1766041365
+            serde: org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+          
+              input format: org.apache.hadoop.mapred.TextInputFormat
+              output format: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+              properties:
+                EXTERNAL TRUE
+                bucket_count -1
+                bucketing_version 2
+                column.name.delimiter ,
+                columns customer_id,customer_fname,customer_lname,username,password,address,city,state,pincode
+                columns.comments 
+                columns.types string:string:string:string:string:string:string:string:string
+                field.delim ,
+                file.inputformat org.apache.hadoop.mapred.TextInputFormat
+                file.outputformat org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+                location hdfs://m01.itversity.com:9000/user/itv020752/hive_datasets/customers
+                name misgaurav_hive.external_customer_table
+                serialization.ddl struct external_customer_table { string customer_id, string customer_fname, string customer_lname, string username, string password, string address, string city, string state, string pincode}
+                serialization.format ,
+                serialization.lib org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+                transient_lastDdlTime 1766041365
+              serde: org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+              name: misgaurav_hive.external_customer_table
+            name: misgaurav_hive.external_customer_table
+        hdfs://m01.itversity.com:9000/user/itv020752/hive_datasets/orders 
+          Partition
+            base file name: orders
+            input format: org.apache.hadoop.mapred.TextInputFormat
+            output format: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+            properties:
+              EXTERNAL TRUE
+              bucket_count -1
+              bucketing_version 2
+              column.name.delimiter ,
+              columns order_id,order_date,customer_id,order_status
+              columns.comments 
+              columns.types string:string:string:string
+              field.delim ,
+              file.inputformat org.apache.hadoop.mapred.TextInputFormat
+              file.outputformat org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+              location hdfs://m01.itversity.com:9000/user/itv020752/hive_datasets/orders
+              name misgaurav_hive.external_orders_table
+              serialization.ddl struct external_orders_table { string order_id, string order_date, string customer_id, string order_status}
+              serialization.format ,
+              serialization.lib org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+              transient_lastDdlTime 1766041377
+            serde: org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+          
+              input format: org.apache.hadoop.mapred.TextInputFormat
+              output format: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+              properties:
+                EXTERNAL TRUE
+                bucket_count -1
+                bucketing_version 2
+                column.name.delimiter ,
+                columns order_id,order_date,customer_id,order_status
+                columns.comments 
+                columns.types string:string:string:string
+                field.delim ,
+                file.inputformat org.apache.hadoop.mapred.TextInputFormat
+                file.outputformat org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+                location hdfs://m01.itversity.com:9000/user/itv020752/hive_datasets/orders
+                name misgaurav_hive.external_orders_table
+                serialization.ddl struct external_orders_table { string order_id, string order_date, string customer_id, string order_status}
+                serialization.format ,
+                serialization.lib org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+                transient_lastDdlTime 1766041377
+              serde: org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+              name: misgaurav_hive.external_orders_table
+            name: misgaurav_hive.external_orders_table
+      Truncated Path -> Alias:
+        hdfs://m01.itversity.com:9000/user/itv020752/hive_datasets/customers [$hdt$_1:c]
+        hdfs://m01.itversity.com:9000/user/itv020752/hive_datasets/orders [$hdt$_0:o]
+      Needs Tagging: true
+      Reduce Operator Tree:
+        Join Operator
+          condition map:
+               Inner Join 0 to 1
+          keys:
+            0 _col2 (type: string)
+            1 _col0 (type: string)
+          outputColumnNames: _col0, _col1, _col2, _col3, _col4, _col5, _col6, _col7, _col8, _col9, _col10, _col11, _col12
+          Statistics: Num rows: 1 Data size: 0 Basic stats: PARTIAL Column stats: NONE
+          Limit
+            Number of rows: 5
+            Statistics: Num rows: 1 Data size: 0 Basic stats: PARTIAL Column stats: NONE
+            File Output Operator
+              compressed: false
+              GlobalTableId: 0
+              directory: hdfs://m01.itversity.com:9000/tmp/hive/itv020752/itv020752/624c358a-a979-4104-951e-49fa6de23bb1/hive_2025-12-18_04-43-40_008_6043345029835809343-2/-mr-10001/.hive-staging_hive_2025-12-18_04-43-40_008_6043345029835809343-2/-ext-10002
+              NumFilesPerFileSink: 1
+              Statistics: Num rows: 1 Data size: 0 Basic stats: PARTIAL Column stats: NONE
+              Stats Publishing Key Prefix: hdfs://m01.itversity.com:9000/tmp/hive/itv020752/itv020752/624c358a-a979-4104-951e-49fa6de23bb1/hive_2025-12-18_04-43-40_008_6043345029835809343-2/-mr-10001/.hive-staging_hive_2025-12-18_04-43-40_008_6043345029835809343-2/-ext-10002/
+              table:
+                  input format: org.apache.hadoop.mapred.SequenceFileInputFormat
+                  output format: org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat
+                  properties:
+                    columns _col0,_col1,_col2,_col3,_col4,_col5,_col6,_col7,_col8,_col9,_col10,_col11,_col12
+                    columns.types string:string:string:string:string:string:string:string:string:string:string:string:string
+                    escape.delim \
+                    hive.serialization.extend.additional.nesting.levels true
+                    serialization.escape.crlf true
+                    serialization.format 1
+                    serialization.lib org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+                  serde: org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+              TotalFiles: 1
+              GatherStats: false
+              MultiFileSpray: false
+
+  Stage: Stage-0
+    Fetch Operator
+      limit: 5
+      Processor Tree:
+        ListSink
+
+Time taken: 51.216 seconds, Fetched: 191 row(s)
