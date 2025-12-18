@@ -4,7 +4,7 @@ FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTa
 hive> set hive.metastore.warehouse.dir = /user/itv020752/warehouse/;
 hive> create database if not exists misgaurav_hive;
 OK
-Time taken: 0.343 seconds
+Time taken: 0.343 seconds 
 
 hive> CREATE EXTERNAL TABLE IF NOT EXISTS misgaurav_hive.external_customer_table (
     >customer_id STRING,
