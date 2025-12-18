@@ -139,7 +139,7 @@ print(g, f)
 # drwxr-xr-x   - itv020752 supergroup          0 2025-08-13 07:17 /user/itv020752/warehouse/misgaurav_hive_new.db
 # drwxr-xr-x   - itv020752 supergroup          0 2025-12-16 05:58 /user/itv020752/warehouse/misgaurav_hive_part1.db
 
-
+# No hash table will be created, cuz map side join is disabled by default in Hive.
 hive> select O.*, C.* from external_orders_table O inner join external_customer_table C
     > on O.customer_id = C.customer_id limit 5;
 Query ID = itv020752_20251218022108_00836849-377e-4e7a-9625-6a221c7f0bdf
