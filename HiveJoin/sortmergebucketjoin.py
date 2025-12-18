@@ -1,5 +1,9 @@
 # no of bucket should be same on both the tables.
-# both the table should be sorted on the joining columns
+# both the table should be sorted on the joining columns.
+# here 1st bucket of table 1 will join with 1st bucket of table 2 and so on.
+# since, there are 4 buckets in both the tables, for each bucket join, there would be 1 mapper.
+# there is no need to load the data into memory as in case of map side join.
+# directly bucket can be join, 1 to 1 maping is happening between the buckets of both the tables.
 
 hive (misgaurav_hive)> SET hive.input.format=org.apache.hadoop.hive.ql.io.BucketizedHiveInputFormat;
 hive (misgaurav_hive)> set hive.autoconvert.sortmerge.join = true;
