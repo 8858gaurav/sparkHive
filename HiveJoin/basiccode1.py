@@ -44,10 +44,14 @@ external_customer_table
 external_orders_table
 Time taken: 0.026 seconds, Fetched: 2 row(s)
 
-[itv020752@g01 ~]$ ls -l hive_datasets/
-total 3864
--rw-r--r-- 1 itv020752 students  953719 Dec 18 01:52 customers.csv
--rw-r--r-- 1 itv020752 students 2999944 Dec 18 02:00 orders.csv
+[itv020752@g01 ~]$ ls -l -h hive_datasets/
+total 3.8M
+-rw-r--r-- 1 itv020752 students 932K Dec 18 01:52 customers.csv
+-rw-r--r-- 1 itv020752 students 2.9M Dec 18 02:00 orders.csv
+
+import os
+print(int(os.path.getsize('hive_datasets/orders.csv'))/1024/1024) ## size in mb on local machine --> 2.86
+print(int(os.path.getsize('hive_datasets/customers.csv'))/1024/1024) ## size in mb on local machine --> 0.90
 
 import pyspark, pandas as pd
 from pyspark.sql.functions import *
