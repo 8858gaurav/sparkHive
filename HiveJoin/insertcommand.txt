@@ -1,0 +1,16 @@
+Insert command will creat 2 job.
+Insert into table demo_1 select * from demo_2;
+job1: read demo_2, process data, write it to a temp locations.
+job2: move temp data data to demo_2 table (hdfs locations)
+
+job1: data processing
+job2: commit / move data
+
+this will happens for both managed, & ext table, with this it can prevent
+partial insert / corrupted data if the job will fails. 
+
+thus it ensure atomicity, means data is either fully return to hdfs path or not written at all. 
+
+map side join: has 0 reducer
+sort merge bucket join(4 bucket, 4 bucket): has 0 reducer
+bucket map join(4 bucket, 8 bucket): has reducer
